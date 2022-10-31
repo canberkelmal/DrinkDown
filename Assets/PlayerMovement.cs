@@ -36,26 +36,36 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
         
-        Debug.Log(other.gameObject.tag);
+        Debug.Log("----" + other.gameObject.tag);
 
         if(other.gameObject.tag=="Heal" || other.gameObject.tag=="HealGate"){
-            Debug.Log("from " + health);
+            Debug.Log("----from " + health);
             health+=10;
-            Debug.Log("to " + health);
+            Debug.Log("----to " + health);
             Debug.Log("----------------");
             score.text="Health: " + health;
         }
 
         if(other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate"){
-            Debug.Log("from " + health);
+            Debug.Log("----from " + health);
             health-=10;
-            Debug.Log("to " + health);
+            Debug.Log("----to " + health);
             Debug.Log("----------------");
             score.text="Health: " + health;
         }
 
         if(other.gameObject.tag=="Fire" || other.gameObject.tag=="Heal"){
             Destroy(other.gameObject);
+        }
+
+        if(health>=70){
+            gameObject.GetComponent<Renderer>().material.color=Color.green;
+        }
+        else if(health<70 && health>40){
+            gameObject.GetComponent<Renderer>().material.color=Color.yellow;
+        }        
+        else if(health<=40){
+            gameObject.GetComponent<Renderer>().material.color=Color.red;
         }
 
     }
