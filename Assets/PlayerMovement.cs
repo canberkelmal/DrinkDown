@@ -39,18 +39,16 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("----" + other.gameObject.tag);
 
         if(other.gameObject.tag=="Heal" || other.gameObject.tag=="HealGate"){
-            Debug.Log("----from " + health);
             health+=10;
-            Debug.Log("----to " + health);
-            Debug.Log("----------------");
             score.text="Health: " + health;
+            Debug.Log("from " + health + " to " + (health+10));
+            Debug.Log("----------------");
         }
 
         if(other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate"){
-            Debug.Log("----from " + health);
-            health-=10;
-            Debug.Log("----to " + health);
+            Debug.Log("from " + health + " to" + (health-10));
             Debug.Log("----------------");
+            health-=10;
             score.text="Health: " + health;
         }
 
