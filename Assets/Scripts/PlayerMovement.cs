@@ -21,14 +21,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(joystick.Vertical>=0){
+
+        rb.velocity=new Vector3(joystick.Horizontal*sensivity,
+                                0,
+                                joystick.Vertical*sensivity);
+
+        /* if(joystick.Vertical>=0){
             rb.velocity=new Vector3(joystick.Horizontal*sensivity,
                                     0,
                                     joystick.Vertical*sensivity);
         }
         else{
             rb.velocity=new Vector3(joystick.Horizontal*sensivity, 0, 0);
-        }
+        } */
 
 
 
