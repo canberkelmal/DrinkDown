@@ -3161,6 +3161,8 @@ MonoBehaviour:
   health: 100
   joystick: {fileID: 2064545895}
   score: {fileID: 287467523}
+  healEffect: {fileID: 0}
+  damageEffect: {fileID: 0}
 --- !u!54 &1608567699
 Rigidbody:
   m_ObjectHideFlags: 0

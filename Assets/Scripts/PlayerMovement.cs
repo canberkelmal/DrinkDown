@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public int health;
     public Joystick joystick;
     public Text score;
+    public GameObject healEffect;
+    public GameObject damageEffect;
 
     void Start()
     {
@@ -58,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(other.gameObject.tag=="Fire" || other.gameObject.tag=="Heal"){
+            Instantiate(healEffect, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
         }
 
