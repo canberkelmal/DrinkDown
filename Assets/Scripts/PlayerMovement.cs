@@ -59,10 +59,15 @@ public class PlayerMovement : MonoBehaviour
             score.text="Health: " + health;
         }
 
-        if(other.gameObject.tag=="Fire" || other.gameObject.tag=="Heal"){
+        if(other.gameObject.tag=="Heal"){
             Instantiate(healEffect, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
         }
+        if(other.gameObject.tag=="Fire"){   
+            Instantiate(damageEffect, other.transform.position, other.transform.rotation);
+            Destroy(other.gameObject);
+        }
+
 
         if(health>=70){
             gameObject.GetComponent<Renderer>().material.color=Color.green;
