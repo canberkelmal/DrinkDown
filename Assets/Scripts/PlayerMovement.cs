@@ -55,12 +55,13 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("----------------");
         }
 
-        if(other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate"){
-            Debug.Log("from " + health + " to" + (health-10));
-            Debug.Log("----------------");
+        if(health>100 && (other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate")){
             health-=10;
             score.text=health + "/100";
             healthBar.fillAmount-=0.1f;
+            
+            Debug.Log("from " + health + " to" + (health-10));
+            Debug.Log("----------------");
         }
 
         if(other.gameObject.tag=="Heal"){
