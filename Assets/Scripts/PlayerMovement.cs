@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Text score;
     public GameObject healEffect;
     public GameObject damageEffect;
+    public Image healthBar;
 
     void Start()
     {
@@ -45,9 +46,11 @@ public class PlayerMovement : MonoBehaviour
         
         Debug.Log("----" + other.gameObject.tag);
 
-        if(other.gameObject.tag=="Heal" || other.gameObject.tag=="HealGate"){
+        if( health<100 && (other.gameObject.tag=="Heal" || other.gameObject.tag=="HealGate") ){
             health+=10;
-            score.text="Health: " + health;
+            score.text=health + "/100";
+            healthBar.fillAmount+=0.1f;
+
             Debug.Log("from " + health + " to " + (health+10));
             Debug.Log("----------------");
         }
@@ -56,7 +59,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("from " + health + " to" + (health-10));
             Debug.Log("----------------");
             health-=10;
-            score.text="Health: " + health;
+            score.text=health + "/100";
+            healthBar.fillAmount-=0.1f;
         }
 
         if(other.gameObject.tag=="Heal"){
