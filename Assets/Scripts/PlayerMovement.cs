@@ -74,11 +74,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(other.gameObject.tag=="Heal"){
-            Instantiate(healEffect, other.transform.position, other.transform.rotation);
+            healEffect.gameObject.GetComponent<ParticleSystem>().Play();
+            //Instantiate(healEffect, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag=="Fire"){   
-            Instantiate(damageEffect, other.transform.position, other.transform.rotation);
+            damageEffect.gameObject.GetComponent<ParticleSystem>().Play();
+            //Instantiate(damageEffect, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
         }
 
