@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject healEffect;
     public GameObject damageEffect;
     public Image healthBar;
+    public Animator animator;
 
     void Start()
     {
@@ -42,11 +43,16 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    
+
     void OnTriggerEnter(Collider other){
         
         Debug.Log("----" + other.gameObject.tag);
 
         if( health<100 && (other.gameObject.tag=="Heal" || other.gameObject.tag=="HealGate") ){
+
+            animator.SetTrigger("Heal");
+
             health+=10;
             score.text=health + "/100";
             healthBar.fillAmount+=0.1f;
@@ -55,11 +61,14 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("----------------");
         }
 
-        if(health>100 && (other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate")){
+        if(health>0 && (other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate")){
+
+            animator.SetTrigger("Damage");
+
             health-=10;
             score.text=health + "/100";
             healthBar.fillAmount-=0.1f;
-            
+
             Debug.Log("from " + health + " to" + (health-10));
             Debug.Log("----------------");
         }
