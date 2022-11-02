@@ -9,6 +9,7 @@ TagManager:
   - Fire
   - DamageGate
   - HealGate
+  - Obs
   layers:
   - Default
   - TransparentFX

@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("----------------");
         }
 
-        if(health>0 && (other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate")){
+        if(health>0 && (other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate" || other.gameObject.tag=="Obs")){
 
             animator.SetTrigger("Damage");
 
@@ -82,6 +82,10 @@ public class PlayerMovement : MonoBehaviour
             damageEffect.gameObject.GetComponent<ParticleSystem>().Play();
             //Instantiate(damageEffect, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag=="Obs"){   
+            damageEffect.gameObject.GetComponent<ParticleSystem>().Play();
+            //Instantiate(damageEffect, other.transform.position, other.transform.rotation);
         }
 
 
