@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject damageEffect;
     public Image healthBar;
     public Animator animator;
+    //public float x;
 
     void Start()
     {
@@ -32,10 +35,17 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity=new Vector3(joystick.Horizontal*sensivity,
                                 0,
                                 joystick.Vertical*sensivity);
+        //rb.velocity=new Vector3(0, 0, x);
 
 
         Movement = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.position += Movement * sensivity * Time.deltaTime;
+        if(Movement.z>=0){
+            transform.position += Movement * sensivity * Time.deltaTime;
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
         /* if(joystick.Vertical>=0){
             rb.velocity=new Vector3(joystick.Horizontal*sensivity,
