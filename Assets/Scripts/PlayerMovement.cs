@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     
     Rigidbody rb;
+    string trigger;
+    bool gate=true;
     public float sensivity=100f;
     public int health;
     public Joystick joystick;
@@ -41,51 +43,27 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    }
-
-    
+    }    
 
     void OnTriggerEnter(Collider other){
+
+        trigger=other.gameObject.tag;
         
-        Debug.Log("----" + other.gameObject.tag);
+        Debug.Log("----" + trigger);
 
-        if( health<100 && (other.gameObject.tag=="Heal" || other.gameObject.tag=="HealGate") ){
-
-            animator.SetTrigger("Heal");
-
-            health+=10;
-            score.text=health + "/100";
-            healthBar.fillAmount+=0.1f;
-
-            Debug.Log("from " + health + " to " + (health+10));
-            Debug.Log("----------------");
+        if(trigger=="Gate"){
+            gate= gameObject.transform.position.x>0 ? false : true;
         }
 
-        if(health>0 && (other.gameObject.tag=="Fire" || other.gameObject.tag=="DamageGate" || other.gameObject.tag=="Obs")){
-
-            animator.SetTrigger("Damage");
-
-            health-=10;
-            score.text=health + "/100";
-            healthBar.fillAmount-=0.1f;
-
-            Debug.Log("from " + health + " to" + (health-10));
-            Debug.Log("----------------");
+        if( health<100 && (trigger=="Heal" || (trigger=="Gate" && gate)) ){
+            Heal();
+        }
+        if(health>0 && (trigger=="Fire" || (trigger=="Gate" && !gate) || trigger=="Obs")){
+            Damage();
         }
 
-        if(other.gameObject.tag=="Heal"){
-            healEffect.gameObject.GetComponent<ParticleSystem>().Play();
-            //Instantiate(healEffect, other.transform.position, other.transform.rotation);
+        if(trigger=="Heal" || trigger=="Fire"){
             Destroy(other.gameObject);
-        }
-        if(other.gameObject.tag=="Fire"){   
-            damageEffect.gameObject.GetComponent<ParticleSystem>().Play();
-            //Instantiate(damageEffect, other.transform.position, other.transform.rotation);
-            Destroy(other.gameObject);
-        }
-        if(other.gameObject.tag=="Obs"){   
-            damageEffect.gameObject.GetComponent<ParticleSystem>().Play();
-            //Instantiate(damageEffect, other.transform.position, other.transform.rotation);
         }
 
 
@@ -100,4 +78,34 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+    public void Heal(){
+
+        animator.SetTrigger("Heal");
+
+        health+=10;
+        score.text=health + "/100";
+        healthBar.fillAmount+=0.1f;
+        
+        healEffect.gameObject.GetComponent<ParticleSystem>().Play();
+
+        Debug.Log("from " + health + " to " + (health+10));
+        Debug.Log("----------------");
+
+    }
+
+    public void Damage(){
+
+        animator.SetTrigger("Damage");
+
+        health-=10;
+        score.text=health + "/100";
+        healthBar.fillAmount-=0.1f;
+        
+        damageEffect.gameObject.GetComponent<ParticleSystem>().Play();
+
+        Debug.Log("from " + health + " to" + (health-10));
+        Debug.Log("----------------");
+    }
+
 }
