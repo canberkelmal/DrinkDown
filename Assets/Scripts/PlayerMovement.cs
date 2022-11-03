@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     string trigger;
     bool gate=true;
+    Vector3 Movement;
     public float sensivity=100f;
     public int health;
     public Joystick joystick;
@@ -32,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
                                 0,
                                 joystick.Vertical*sensivity);
 
+
+        Movement = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        transform.position += Movement * sensivity * Time.deltaTime;
+
         /* if(joystick.Vertical>=0){
             rb.velocity=new Vector3(joystick.Horizontal*sensivity,
                                     0,
@@ -41,9 +46,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity=new Vector3(joystick.Horizontal*sensivity, 0, 0);
         } */
 
-
-
-    }    
+    }
 
     void OnTriggerEnter(Collider other){
 
@@ -107,5 +110,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("from " + health + " to" + (health-10));
         Debug.Log("----------------");
     }
+    
 
 }
